@@ -258,22 +258,6 @@
             <!-- /.card -->
 
             <!-- Grafik Penjualan -->
-            <div class="card modern-card">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="fas fa-chart-line mr-1"></i>
-                  Grafik Penjualan Mingguan
-                </h3>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <canvas id="salesChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%;"></canvas>
-              </div>
-            </div>
           </section>
           <!-- /.Left col -->
           
@@ -296,7 +280,31 @@
                 <ul class="products-list product-list-in-card pl-2 pr-2">
                   @php
                     $topProducts = \App\Models\DetailPenjualan::join('produks', 'detail_penjualans.ProdukId', '=', 'produks.id')
-                      ->select('produks.id', 'produks.NamaProduk', 'produks.Harga', \DB::raw('SUM(detail_penjualans.JumlahProduk) as total_sol
+                      ->select('produks.id', 'produks.NamaProduk', 'produks.Harga', \DB::raw('SUM(detail_penjualans.JumlahProduk) as total_sold'))
+                      ->groupBy('produks.id', 'produks.NamaProduk', 'produks.Harga')
+                      ->orderByDesc('total_sold')
+                      ->take(5)
+                      ->get();
+                  @endphp
+                  @forelse($topProducts as $product)
+                    <li class="item">
+                      <div class="product-info">
+                        <a href="javascript:void(0)" class="product-title">
+                          {{ $product->NamaProduk }}
+                          <span class="badge badge-info float-right">{{ $product->total_sold }} Terjual</span>
+                        </a>
+                        <span class="product-description">
+                          Rp {{ number_format($product->Harga, 0, ',', '.') }}
+                        </span>
+                      </div>
+                    </li>
+                  @empty
+                    <li class="item">
+                      <div class="product-info text-center">
+                        Belum ada data produk
+                      </div>
+                    </li>
+                  @endforelse
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->

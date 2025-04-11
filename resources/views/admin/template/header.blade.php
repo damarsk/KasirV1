@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-dark-primary">
     <div class="wrapper">
 
         <!-- Preloader -->

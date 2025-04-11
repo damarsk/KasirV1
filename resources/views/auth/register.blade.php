@@ -54,16 +54,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                    <label for="agreeTerms" style="color: #555; font-weight: normal;">
-                                        Saya setuju dengan <a href="#" style="color: #6a11cb;">ketentuan</a>
-                                    </label>
-                                </div>
-                            </div>
                             <!-- /.col -->
-                            <div class="col-4">
+                            <div class="col-12">
                                 <button type="submit" class="btn btn-block" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border-radius: 10px; padding: 10px; font-weight: 600; border: none; box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11);">Daftar</button>
                             </div>
                             <!-- /.col -->

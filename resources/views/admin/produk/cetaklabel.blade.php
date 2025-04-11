@@ -11,12 +11,22 @@
     <title>Cetak Label</title>
   </head>
   <body>
-    <div class="row">
-        @foreach ($barcodes as $item)
-            <div class="col-3">
-                {!! $item['barcode'] !!}
-                <br>
-                {{ $item['harga'] }}
+    <div class="container">
+        @php 
+            $chunks = array_chunk($barcodes, 3);
+        @endphp
+        
+        @foreach ($chunks as $chunk)
+            <div class="row mb-4">
+                @foreach ($chunk as $item)
+                    <div class="col-4">
+                        <div class="d-flex align-items-center justify-content-center">
+                            {!! $item['barcode'] !!}
+                            <div class="ml-3">{{ $item['harga'] }}</div>
+                        </div>
+                    </div>
+                    <br>
+                @endforeach
             </div>
         @endforeach
     </div>
@@ -35,7 +45,3 @@
     -->
   </body>
 </html>
-
-
-    
-
