@@ -1,5 +1,10 @@
 @extends('admin.template.master')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+@endsection
+
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">
@@ -86,20 +91,26 @@
             $("#success-alert").delay(3000).slideUp(300, function () {
                 $(this).alert('close');
             });
-        });
 
-        $(function() {
             $('#users-table').DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "dom": '<"row mb-3"<"col-md-6"B><"col-md-6 d-flex justify-content-end"f>>rt<"row mt-3"<"col-md-6"i><"col-md-6 d-flex justify-content-end"p>>',
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                "language": {
-                    "search": "_INPUT_",
-                    "searchPlaceholder": "Search...",
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                dom: '<"row mb-3"<"col-md-6"B><"col-md-6 d-flex justify-content-end"f>>rt<"row mt-3"<"col-md-6"i><"col-md-6 d-flex justify-content-end"p>>',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print',
+                    {
+                        extend: 'colvis',
+                        className: 'btn btn-secondary',
+                        text: 'Column Visibility',
+                        columns: ':not(.noVis)'
+                    },
+                ],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search...",
                 }
-            }).buttons().container().appendTo('#users-table_wrapper .col-md-6:eq(0)');
+            });
         });
     </script>
     
