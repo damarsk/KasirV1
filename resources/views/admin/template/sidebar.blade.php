@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar elevation-4" style="background: linear-gradient(135deg, rgba(106, 17, 203, 0.95) 0%, rgba(37, 117, 252, 0.95) 100%);">
+<aside class="main-sidebar elevation-4" style="background: linear-gradient(135deg, rgba(17, 98, 203, 0.95) 0%, rgba(37, 117, 252, 0.95) 100%);">
     <!-- Brand Logo -->
     <a href="{{ route('dashboard') }}" class="brand-link" style="border-bottom: 1px solid rgba(255,255,255,0.2);">
         <img src="{{ asset('') }}dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
