@@ -6,19 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-class ManageKasirController extends Controller
+class ManageUserController extends Controller
 {
     public function index() {
         $title = 'Manage User';
         $subtitle = 'List User';
         $users = User::all();
-        return view('admin.manage_kasir.index', compact('title', 'subtitle', 'users'));
+        return view('admin.manage_user.index', compact('title', 'subtitle', 'users'));
     }
 
     public function create() {
         $title = 'Manage User';
         $subtitle = 'Create User';
-        return view('admin.manage_kasir.create', compact('title', 'subtitle'));
+        return view('admin.manage_user.create', compact('title', 'subtitle'));
     }
 
     public function store(Request $request) {
@@ -36,14 +36,14 @@ class ManageKasirController extends Controller
             'role' => $request->role
         ]);
 
-        return redirect()->route('manage.user')->with('success', 'User created successfully');
+        return redirect()->route('manage-user.index')->with('success', 'User created successfully');
     }
 
     public function edit($id) {
         $title = 'Manage User';
         $subtitle = 'Edit User';
         $user = User::findOrFail($id);
-        return view('admin.manage_kasir.edit', compact('title', 'subtitle', 'user'));
+        return view('admin.manage_user.edit', compact('title', 'subtitle', 'user'));
     }
 
     public function update(Request $request, $id) {
@@ -66,12 +66,12 @@ class ManageKasirController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('manage.user')->with('success', 'User updated successfully');
+        return redirect()->route('manage-user.index')->with('success', 'User updated successfully');
     }
 
     public function destroy($id) {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('manage.user')->with('success', 'User deleted successfully');
+        return redirect()->route('manage-user.index')->with('success', 'User deleted successfully');
     }
 }

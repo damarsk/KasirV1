@@ -62,7 +62,7 @@
                 </li>
                 @if (Auth::user()->role == "admin")
                 <li class="nav-item">
-                    <a href="{{ route('manage.user') }}" class="nav-link">
+                    <a href="{{ route('manage-user.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Manage User

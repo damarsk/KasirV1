@@ -23,7 +23,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">{{ $title }}</h3>
-                        <a href="{{ route('manage.user') }}" class="btn btn-sm btn-warning float-right">Kembali</a>
+                        <a href="{{ route('manage-user.index') }}" class="btn btn-sm btn-warning float-right">Kembali</a>
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger" role="alert">
@@ -33,7 +33,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <form id="form-update-user" method="POST" action="{{ route('manage-kasir.update', $user->id) }}">
+                        <form id="form-update-user" method="POST" action="{{ route('manage-user.update', $user->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -62,49 +62,4 @@
             </div>
         </section>
     </div>
-@endsection
-
-@section('js')
-    <script>
-        $(document).ready(function() {
-            $("#form-update-user").submit(function(e) {
-                e.preventDefault();
-                let formData = $(this).serialize();
-                
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('action'),
-                    data: formData,
-                    dataType: "json",
-                    success: function(data) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: data.message,
-                            confirmButtonText: 'Ok'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "{{ route('manage.user') }}";
-                            }
-                        });
-                    },
-                    error: function(data) {
-                        let errors = data.responseJSON.errors;
-                        let errorMessages = [];
-                        
-                        for (let field in errors) {
-                            errorMessages.push(errors[field][0]);
-                        }
-                        
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            html: errorMessages.join('<br>'),
-                            confirmButtonText: 'Ok'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

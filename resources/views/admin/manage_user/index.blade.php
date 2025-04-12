@@ -23,15 +23,14 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">{{ $title }}</h3>
-                        <a href="{{ route('manage-kasir.create') }}" class="btn btn-sm btn-primary float-right">Tambah User</a>
-                        @if (session()->has('success'))
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
+                        <a href="{{ route('manage-user.create') }}" class="btn btn-sm btn-primary float-right">Tambah User</a>
                     </div>
                     <div class="card-body">
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" id="success-alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <table id="users-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
@@ -50,8 +49,8 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>
-                                        <a href="{{ route('manage-kasir.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <form action="{{ route('manage-kasir.destroy', $user->id) }}" method="POST" style="display:inline">
+                                        <a href="{{ route('manage-user.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <form action="{{ route('manage-user.destroy', $user->id) }}" method="POST" style="display:inline">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah anda yakin?')">Delete</button>
@@ -83,6 +82,12 @@
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>    
     <script>
+        $(document).ready(function () {
+            $("#success-alert").delay(3000).slideUp(300, function () {
+                $(this).alert('close');
+            });
+        });
+
         $(function() {
             $('#users-table').DataTable({
                 "responsive": true,

@@ -4,7 +4,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ManageKasirController;
+use App\Http\Controllers\ManageUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[UserController::class,'login'])->name('login');
@@ -16,12 +16,12 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::group(['middleware' => ['auth']], function () {
     // Manage Kasir Routes
-    Route::get('/manage/user', [ManageKasirController::class, 'index'])->name('manage.user');
-    Route::get('/manage/user/create', [ManageKasirController::class, 'create'])->name('manage-kasir.create');
-    Route::post('/manage/user', [ManageKasirController::class, 'store'])->name('manage-kasir.store');
-    Route::get('/manage/user/{id}/edit', [ManageKasirController::class, 'edit'])->name('manage-kasir.edit');
-    Route::put('/manage/user/{id}', [ManageKasirController::class, 'update'])->name('manage-kasir.update');
-    Route::delete('/manage/user/{id}', [ManageKasirController::class, 'destroy'])->name('manage-kasir.destroy');
+    Route::get('/manage/user', [ManageUserController::class, 'index'])->name('manage-user.index');
+    Route::get('/manage/user/create', [ManageUserController::class, 'create'])->name('manage-user.create');
+    Route::post('/manage/user', [ManageUserController::class, 'store'])->name('manage-user.store');
+    Route::get('/manage/user/{id}/edit', [ManageUserController::class, 'edit'])->name('manage-user.edit');
+    Route::put('/manage/user/{id}', [ManageUserController::class, 'update'])->name('manage-user.update');
+    Route::delete('/manage/user/{id}', [ManageUserController::class, 'destroy'])->name('manage-user.destroy');
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::post('produk/cetak/label',[ProdukController::class,'cetakLabel'])->name('produk.cetakLabel');
     Route::PUT('produk/edit/{id}/tambahStok',[ProdukController::class,'tambahStok'])->name('produk.tambahStok');
