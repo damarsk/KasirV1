@@ -38,7 +38,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Produk</th>
-                                    <th>Penambahan Stok</th>
+                                    <th>Perubahan Stok</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                 </tr>

@@ -69,11 +69,6 @@ class UserController extends Controller
         return view('auth.login');
     }
 
-    public function register()
-    {
-        return view('auth.register');
-    }
-
     public function registerStore(Request $request)
     {
         $validate = $request->validate([
