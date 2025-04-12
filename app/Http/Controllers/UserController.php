@@ -69,29 +69,6 @@ class UserController extends Controller
         return view('auth.login');
     }
 
-    public function register()
-    {
-        return view('auth.register');
-    }
-
-    public function registerStore(Request $request)
-    {
-        $validate = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:8|same:password_confirmation',
-        ]);
-
-        $validate['password'] = bcrypt($validate['password']);
-
-        $simpan = User::create($validate);
-        if ($simpan) {
-            return redirect()->route('login')->with('success', 'Registrasi Berhasil');
-        }else{
-            return redirect()->route('register')->with('error', 'Registrasi Gagal');
-        }
-    }
-
     public function loginCheck(Request $request)
     {
         $validate = $request->validate([

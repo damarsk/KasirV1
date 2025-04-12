@@ -116,6 +116,7 @@
       <div class="container-fluid">
         <div class="row mb-3">
           <div class="col-sm-6">
+            <p>👋Halo, {{ Auth::user()->name }}</p>
             <h1 class="m-0" style="font-weight: 700; color: #333;">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">

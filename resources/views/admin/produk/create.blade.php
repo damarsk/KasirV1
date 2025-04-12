@@ -31,7 +31,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">{{ $title }}</h3>
-                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-warning float-right">Kembali</a>
+                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-secondary text-white float-right">Kembali</a>
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger" role="alert">

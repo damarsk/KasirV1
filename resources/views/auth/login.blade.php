@@ -6,7 +6,7 @@
             <!-- /.login-logo -->
             <div class="card" style="border-radius: 15px; box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2); border: none; overflow: hidden;">
                 <div class="card-header text-center" style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); padding: 25px 0; border: none;">
-                    <a href="#" class="h1" style="color: white; font-weight: 600; letter-spacing: 1px;"><b>Kasir</b>Laravel</a>
+                    <a href="#" class="h1" style="color: white; font-weight: 600; letter-spacing: 1px;">Kasir<b>Q</b></a>
                 </div>
                 <div class="card-body" style="padding: 30px;">
                     <p class="login-box-msg" style="font-size: 18px; font-weight: 500; color: #555; margin-bottom: 25px;">Masuk ke Sistem Kasir</p>
@@ -46,13 +46,7 @@
                             </div>
                             <!-- /.col -->
                         </div>
-                    </form>
-
-                    <div class="text-center mt-3">
-                        <p class="mb-0">
-                            <a href="{{ route('register') }}" class="text-center" style="color: #6a11cb; font-weight: 500;">Daftar sebagai petugas</a>
-                        </p>
-                    </div>
+                    </form> 
                 </div>
                 <!-- /.card-body -->
             </div>
