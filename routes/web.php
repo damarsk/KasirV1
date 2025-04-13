@@ -8,7 +8,8 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/',[UserController::class,'login'])->name('login');
+Route::get('/', function() { return view('welcome'); })->name('login');
+Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/login',[UserController::class,'loginCheck'])->name('login.check');
 Route::resource('users', UserController::class);
 
