@@ -45,6 +45,20 @@ class PenjualanController extends Controller
             'ProdukId' => 'required',
             'JumlahProduk' => 'required',
         ]);
+
+        // VALIDASI STOK
+        $produkKurang = [];
+        foreach ($request->ProdukId as $key => $ProdukId){
+            $produk = Produk::find($ProdukId);
+            if ($produk->Stok < $request->JumlahProduk[$key]){
+                $produkKurang[] = $produk->NamaProduk;
+            }
+        }
+        if (count($produkKurang) > 0) {
+            $namaProduk = implode(', ', $produkKurang);
+            return redirect()->back()->with('error', 'Stok ' . $namaProduk . ' tidak mencukupi')->withInput();
+        }
+
         $data_penjualan = [
             'TanggalPenjualan' => date('Y-m-d'),
             'UsersId' => Auth::user()->id,

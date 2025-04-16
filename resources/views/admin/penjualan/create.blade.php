@@ -61,77 +61,80 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ $title }}</h3>
                         <a href="{{ route('penjualan.index') }}" class="btn btn-sm btn-warning float-right">Kembali</a>
-                        @if (session()->has('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
                     </div>
-                    <form action="{{ route('penjualan.store') }}" method="post">
                     <div class="card-body">
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('penjualan.store') }}" method="post">
                         <table id="example1" class="table table-bordered table-striped">
-                            
-                                @csrf
-                                <thead>
-                                    <tr>
-                                        <th>Produk</th>
-                                        <th>Harga</th>
-                                        <th>Jumlah</th>
-                                        <th>Total</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="penjualan">
-                                    <tr>
-                                        <td>
-                                            <select name="ProdukId[]" id="id_produk" class="form-control kode-produk" onchange="pilihProduk(this)">
-                                                <option value="">Pilih Produk</option>
-                                                @foreach ($produks as $produk)
-                                                    <option value="{{ $produk->id }}" data-harga="{{ $produk->Harga }}">
-                                                        {{ $produk->NamaProduk }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                            @csrf
+                                    <thead>
+                                        <tr>
+                                            <th>Produk</th>
+                                            <th>Harga</th>
+                                            <th>Jumlah</th>
+                                            <th>Total</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="penjualan">
+                                        <tr>
+                                            <td>
+                                                <select name="ProdukId[]" id="id_produk" class="form-control kode-produk" onchange="pilihProduk(this)">
+                                                    <option value="">Pilih Produk</option>
+                                                    @foreach ($produks as $produk)
+                                                        <option value="{{ $produk->id }}" data-harga="{{ $produk->Harga }}">
+                                                            {{ $produk->NamaProduk }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
 
-                                        </td>
-                                        <td>
-                                            <input type="text" name="harga[]" id="harga" class="form-control harga"
-                                                readonly>
-                                        </td>
-                                        <td>
-                                            <input type="number" name="JumlahProduk[]" id="JumlahProduk "
-                                                class="form-control jumlahProduk" oninput="hitungTotal(this)">
-                                        </td>
-                                        <td>
-                                            <input type="text" name="TotalHarga[]" id="TotalHarga" class="form-control totalHarga"
-                                                readonly>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="hapusProduk(this)">Hapus</button>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="harga[]" id="harga" class="form-control harga"
+                                                    readonly>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="JumlahProduk[]" id="JumlahProduk "
+                                                    class="form-control jumlahProduk" oninput="hitungTotal(this)">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="TotalHarga[]" id="TotalHarga" class="form-control totalHarga"
+                                                    readonly>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="hapusProduk(this)">Hapus</button>
+                                            </td>
+                                        </tr>
 
 
-                                </tbody>
-                                <tfooter>
-                                    <tr>
-                                        <td colspan="3">
-                                            Total harga
-                                        </td>
-                                        <td colspan="2">
-                                            <input type="text" id="total" readonly class="form-control" name="total">
-                                        </td>
-                                </tfooter>
-                            
-                        </table>
-                        <button type="button" class="btn btn-primary" onclick="tambahProduk()">Tambah Produk</button>
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                                    </tbody>
+                                    <tfooter>
+                                        <tr>
+                                            <td colspan="3">
+                                                Total harga
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" id="total" readonly class="form-control" name="total">
+                                            </td>
+                                    </tfooter>
+                                
+                            </table>
+                            <button type="button" class="btn btn-primary" onclick="tambahProduk()">Tambah Produk</button>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
