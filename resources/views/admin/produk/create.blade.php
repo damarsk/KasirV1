@@ -47,8 +47,12 @@
                     </div>
                     <div class="card-body">
                         <form id="form-create-produk" method="post">
+                            @csrf
+                            @method('POST')
                             <label for="">Nama Produk</label>
                             <input type="text" name="NamaProduk" class="form-control" required>
+                            <label for="">Kode Produk</label>
+                            <input type="text" name="KodeProduk" class="form-control" required>
                             <label for="">Harga</label>
                             <input type="number" name="Harga" class="form-control" required>
                             <label for="">Stok</label>
@@ -83,24 +87,30 @@
                             confirmButtonText: 'Ok'
                         })
                         $('input[name="NamaProduk"]').val('');
+                        $('input[name="KodeProduk"]').val('');
                         $('input[name="Harga"]').val('');
                         $('input[name="Stok"]').val('');
                     },
                     error: function(data) {
-                        console.log(data.message);
+                        console.log(data);
+                        let errorMessage = data.responseJSON && data.responseJSON.message 
+                            ? data.responseJSON.message 
+                            : 'An error occurred. Please try again.';
+                            
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: data.message,
+                            text: errorMessage,
                             confirmButtonText: 'Ok'
-                        })
+                        });
+                        
                         if (data.status == 500) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Error',
                                 text: data.responseJSON.message,
                                 confirmButtonText: 'Ok'
-                            })
+                            });
                         }
                     }
                 });

@@ -100,7 +100,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>No</th>
-                                    <th>Produk</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kode Produk</th>
                                     <th>Harga</th>
                                     <th>Stok</th>
                                     <th>Aksi</th>
@@ -117,6 +118,7 @@
                                         </td>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $produk->NamaProduk }}</td>
+                                        <td>{{ $produk->KodeProduk }}</td>
                                         <td>{{ rupiah($produk->Harga) }}</td>
                                         <td>{{ $produk->Stok }}</td>
                                         <td>

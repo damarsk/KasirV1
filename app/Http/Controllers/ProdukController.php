@@ -40,6 +40,7 @@ class ProdukController extends Controller
     {
         $validate = $request->validate([
             'NamaProduk' => 'required',
+            'KodeProduk' =>'required|unique:produks',
             'Harga' => 'required|numeric',
             'Stok' => 'required|numeric',
 
@@ -49,7 +50,7 @@ class ProdukController extends Controller
         if ($simpan) {
             return response()->json(['status' => 200, 'message' => 'Produk Berhasil Ditambahkan']);
         } else {
-            return response()->json(['status' => 500, 'message' => 'Produk Gagal']);
+            return response()->json(['status' => 500, 'error' => 'Produk Gagal']);
         }
     }
 
