@@ -31,6 +31,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalKurangStok" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Kurang Stok
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form-kurang-stok" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" name="id_produk" id="id_produk">
+                        <label for=""> Jumlah Stok </label>
+                        <input type="number" name="Stok" id="nilaiKurangStok" class="form-control" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('content')
@@ -108,8 +133,11 @@
                                                     data-id_produk="{{ $produk->id }}">
                                                     Tambah Stok
                                                 </button>
-
-
+                                                <button type="button" class="btn btn-sm btn-danger" id="btnKurangStok"
+                                                    data-toggle="modal" data-target="#modalKurangStok"
+                                                    data-id_produk="{{ $produk->id }}">
+                                                    Kurangi Stok
+                                                </button>
                                             </form>
                                     </tr>
                                 @endforeach
@@ -172,6 +200,10 @@
             let id_produk = $(this).data('id_produk');
             $('#id_produk').val(id_produk);
         });
+        $(document).on('click', '#btnKurangStok', function() {
+            let id_produk = $(this).data('id_produk');
+            $('#id_produk').val(id_produk);
+        });
         $('#form-tambah-stok').submit(function(e) {
             e.preventDefault();
             dataForm = $(this).serialize() + "&_token={{ csrf_token() }}";
@@ -195,6 +227,40 @@
                     })
                     $('#modalTambahStok').modal('hide');
                     $('#formTambahStok')[0].reset();
+                },
+                error: function(data) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message,
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            })
+        })
+        $('#form-kurang-stok').submit(function(e) {
+            e.preventDefault();
+            dataForm = $(this).serialize() + "&_token={{ csrf_token() }}";
+
+            console.log(dataForm);
+            $.ajax({
+                type: "PUT",
+                url: "{{ route('produk.kurangStok', ':id') }}".replace(':id', $('#id_produk').val()),
+                data: dataForm,
+                dataType: "json",
+                success: function(data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: data.message,
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{{ route('produk.index') }}";
+                        }
+                    })
+                    $('#modalKurangStok').modal('hide');
+                    $('#formKurangStok')[0].reset();
                 },
                 error: function(data) {
                     Swal.fire({

@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::post('produk/cetak/label',[ProdukController::class,'cetakLabel'])->name('produk.cetakLabel');
     Route::PUT('produk/edit/{id}/tambahStok',[ProdukController::class,'tambahStok'])->name('produk.tambahStok');
+    Route::PUT('produk/edit/{id}/kurangStok',[ProdukController::class,'kurangStok'])->name('produk.kurangStok');
     Route::get('produk/logproduk',[ProdukController::class,'logproduk'])->name('produk.logproduk');
     Route::get('produk/get-by-kode/{kode}', [ProdukController::class, 'getByKode'])->name('produk.getByKode');
     Route::resource('produk', ProdukController::class);

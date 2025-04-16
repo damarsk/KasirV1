@@ -121,6 +121,21 @@ class ProdukController extends Controller
         }
     }
 
+    public function kurangStok(Request $request, $id)
+    {
+        $validate = $request->validate([
+            'Stok' => 'required|numeric',
+        ]);
+        $produk = Produk::find($id);
+        $produk->Stok -= $validate['Stok'];
+        $update = $produk->save();
+        if ($update) {
+            return response()->json(['status' => 200, 'message' => 'Stok Berhasil Dikurangkan']);
+        } else {
+            return response()->json(['status' => 500, 'message' => 'Stok Gagal Dikurangkan']);
+        }
+    }
+
     public function logproduk()
     {
         $title = 'Produk';
