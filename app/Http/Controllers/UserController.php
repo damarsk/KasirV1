@@ -59,10 +59,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
-    }
 
     public function login()
     {
@@ -89,4 +85,13 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login')->with('success', 'Logout Berhasil');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+         $user->delete();
+
+        return response()->json(['message' => 'User berhasil dihapus.']);
+    }
+
 }

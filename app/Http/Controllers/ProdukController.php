@@ -159,3 +159,22 @@ class ProdukController extends Controller
         return response()->json(['url' => asset('storage/barcodes.pdf')]);
     }
 }
+ function getByKode($kode)
+{
+    $produk = Produk::where('kode_produk', $kode)->first();
+
+    if ($produk) {
+        return response()->json([
+            'status' => 'success',
+            'nama' => $produk->NamaProduk,
+            'harga' => $produk->Harga,
+            'stok' => $produk->Stok
+        ]);
+    } else {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Produk tidak ditemukan'
+        ], 404);
+    }
+}
+

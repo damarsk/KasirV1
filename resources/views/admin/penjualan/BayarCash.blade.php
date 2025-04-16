@@ -1,6 +1,8 @@
 @extends('admin.template.master')
 
 @section('css')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -130,32 +132,43 @@
             })
         })
     </script>
-    <script>
-        $(document).ready(function() {
-                    $('#btnSimpan').on('click', function() {
-                            var totalHarga = $('#totalHarga').val();
-                            var totalHarga = totalHarga.replace(/[^0-9,]/g, '').replace(",", ".");
-                            var JumlahBayar = $('#JumlahBayar').val();
-                            var Kembalian = $('#Kembalian').val();
-                            var id = '{{ $penjualan->id }}';
-                            $.ajax({
-                                    type: "POST",
-                                    url: "{{ route('penjualan.bayarCashStore') }}",
-                                    data: {
-                                        _token: "{{ csrf_token() }}",
-                                        totalHarga: totalHarga,
-                                        JumlahBayar: JumlahBayar,
-                                        Kembalian: Kembalian,
-                                        id: id
-                                    },
-                                    success: function(response) {
-                                        window.location.href = "{{ route('penjualan.index') }}";
-                                    },
-                                    error: function(response) {
-                                        console.log(response);
-                                    }
-                                })
-                            })
-                    })
-    </script>
+   <script>
+    $(document).ready(function () {
+        $('#btnSimpan').on('click', function () {
+            var totalHarga = $('#totalHarga').val().replace(/[^0-9,]/g, '').replace(",", ".");
+            var JumlahBayar = $('#JumlahBayar').val();
+            var Kembalian = JumlahBayar - totalHarga;
+
+            if (JumlahBayar === "" || parseFloat(JumlahBayar) < parseFloat(totalHarga)) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Pembayaran Kurang',
+                    text: 'Uang yang dibayarkan tidak mencukupi total harga!',
+                    confirmButtonText: 'Oke'
+                });
+                return;
+            }
+
+            var id = '{{ $penjualan->id }}';
+
+            $.ajax({
+                type: "POST",
+                url: "{{ route('penjualan.bayarCashStore') }}",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    totalHarga: totalHarga,
+                    JumlahBayar: JumlahBayar,
+                    Kembalian: Kembalian,
+                    id: id
+                },
+                success: function (response) {
+                    window.location.href = "{{ route('penjualan.index') }}";
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    });
+</script>
 @endsection
